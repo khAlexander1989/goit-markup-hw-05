@@ -63,8 +63,6 @@ p {
 
 /* АКТИВНОЕ СОСТОЯНИЕ ССЫЛОК */
 
-.footer-contact-location:hover,
-.footer-contact-location:focus,
 .link:hover,
 .link:focus,
 .nav-link.current {
@@ -451,8 +449,13 @@ p {
 }
 .footer-contact-location {
   color: #ffffff;
+  transition: color 250ms var(--timing-function);
 
   transition: color 250ms var(--timing-function);
+}
+.footer-contact-link:hover .footer-contact-location,
+.footer-contact-link:focus .footer-contact-location {
+  color: var(--accent-color);
 }
 /* СОЦИАЛЬНЫЕ СЕТИ */
 .footer-socials-container {
