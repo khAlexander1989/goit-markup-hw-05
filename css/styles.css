@@ -5,6 +5,8 @@
   --bg-color: #ffffff;
 
   --section-item-gap: 30px;
+
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 body {
   color: var(--primary-text-color);
@@ -15,6 +17,7 @@ body {
 /* СБРОС СТИЛЕЙ */
 .link {
   text-decoration: none;
+  transition: color 250ms var(--timing-function);
 }
 .list {
   list-style: none;
@@ -104,6 +107,8 @@ p {
   margin-left: 50px;
 }
 .nav-link {
+  position: relative;
+
   display: block;
   padding-top: 32px;
   padding-bottom: 32px;
@@ -113,6 +118,22 @@ p {
   font-size: 14px;
   line-height: 1.14;
   letter-spacing: 0.02em;
+
+  transition: color 250ms var(--timing-function);
+}
+.nav-link.current::after {
+  content: '';
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  display: block;
+  width: 100%;
+  height: 4px;
+
+  background-color: var(--accent-color);
+  border-radius: 2px;
 }
 
 /* КОНТАКТНАЯ ИНФОРМАЦИЯ */
@@ -144,7 +165,7 @@ p {
   fill: var(--accent-color);
 }
 
-/* КНОПКИ  */
+/* ОБЩИЙ КЛАСС КНОПКА  */
 .btn {
   font-family: inherit;
   cursor: pointer;
@@ -197,6 +218,8 @@ p {
   font-size: 16px;
   line-height: 1.9;
   letter-spacing: 0.06em;
+
+  transition: background-color 250ms var(--timing-function);
 }
 .hero-btn:hover,
 .hero-btn:focus {
@@ -262,6 +285,29 @@ p {
 .service-item + .service-item {
   margin-left: var(--section-item-gap);
 }
+.service-thumb {
+  position: relative;
+}
+.service-content {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  padding-top: 27px;
+  padding-bottom: 27px;
+
+  background-color: rgba(47, 48, 58, 0.8);
+}
+.service-name {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+}
 
 /* СЕКЦИЯ "НАША КОМАНДА" */
 .team {
@@ -321,9 +367,13 @@ p {
   background-color: transparent;
   color: #afb1b8;
   border-radius: 50%;
+
+  transition: background-color 250ms var(--timing-function);
 }
 .socials-icon {
   fill: currentColor;
+
+  transition: fill 250ms var(--timing-function);
 }
 .socials-link:hover,
 .socials-link:focus {
@@ -350,12 +400,16 @@ p {
   color: #afb1b8;
   border: 1px solid #afb1b8;
   border-radius: 4px;
+
+  transition: border-color 250ms var(--timing-function);
 }
 .client-icon {
   width: 106px;
   height: 60px;
 
   fill: currentColor;
+
+  transition: fill 250ms var(--timing-function);
 }
 .client-link:hover,
 .client-link:focus {
@@ -397,6 +451,8 @@ p {
 }
 .footer-contact-location {
   color: #ffffff;
+
+  transition: color 250ms var(--timing-function);
 }
 /* СОЦИАЛЬНЫЕ СЕТИ */
 .footer-socials-container {
@@ -436,11 +492,13 @@ p {
 
   color: var(--secondary-text-color);
   background-color: #f5f4fa;
-
   font-weight: 500;
   font-size: 16px;
   line-height: 1.63;
   letter-spacing: 0.03em;
+
+  transition: color 250ms var(--timing-function), box-shadow 250ms var(--timing-function),
+    background-color 250ms var(--timing-function);
 }
 .filter-btn.current,
 .filter-btn:hover,
@@ -463,15 +521,46 @@ p {
   flex-basis: calc(100% / 3 - var(--section-item-gap));
   margin-top: var(--section-item-gap);
   margin-left: var(--section-item-gap);
+  background-color: var(--bg-color);
 }
 .project-link {
   display: block;
   text-decoration: none;
+
+  transition: box-shadow 250ms var(--timing-function);
 }
-.project-link:hover {
-  background-color: var(--bg-color);
+.project-link:hover,
+.project-link:focus {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
     1px 4px 6px rgba(0, 0, 0, 0.16);
+}
+.project-thumb {
+  position: relative;
+  overflow: hidden;
+}
+.project-overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateY(100%);
+
+  padding: 63px 24px;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(33, 150, 243, 0.9);
+
+  transition: transform 250ms var(--timing-function);
+}
+.project-link:hover .project-overlay,
+.project-link:focus .project-overlay {
+  transform: translateY(0);
+}
+.project-text {
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1.56;
+  letter-spacing: 0.03em;
 }
 .project-content {
   padding: 20px 24px;
@@ -494,4 +583,69 @@ p {
   font-size: 16px;
   line-height: 1.87;
   letter-spacing: 0.03em;
+}
+
+/* МОДАЛЬНОЕ ОКНО */
+.backdrop {
+  position: fixed;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+
+  background-color: rgba(0, 0, 0, 0.2);
+
+  transition: opacity 250ms var(--timing-function);
+}
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+
+  padding: 8px;
+  width: 528px;
+  height: 581px;
+
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+
+  transition: transform 250ms var(--timing-function);
+}
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+.modal-btn {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30px;
+  height: 30px;
+
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+.modal-btn-icon {
+  fill: currentColor;
+  transition: fill 250ms var(--timing-function);
+}
+.modal-btn:hover .modal-btn-icon,
+.modal-btn:focus .modal-btn-icon {
+  fill: var(--accent-color);
 }
